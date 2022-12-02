@@ -10,7 +10,6 @@
     app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout2"
         android:layout_width="327dp"
         android:layout_height="66dp"
         android:layout_margin="4dp">
@@ -18,7 +17,6 @@
         <!--text view for displaying our note text-->
         <CheckBox
 
-            android:id="@+id/idProductIsBought"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="79dp"
@@ -102,7 +100,6 @@
             app:srcCompat="@drawable/ic_dollar" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

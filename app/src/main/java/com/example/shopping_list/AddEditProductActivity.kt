@@ -1,5 +1,6 @@
 package com.example.shopping_list
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -45,11 +46,11 @@ class AddEditProductActivity : AppCompatActivity() {
         productCostEdt = findViewById(R.id.idEdtProductCost)
         productCountEdt = findViewById(R.id.idEdtProductCount)
         productIsBoughtEdt = findViewById(R.id.idEdtProductIsBought)
-        saveBtn = findViewById(R.id.idBtn)
+              // on below line we are setting data to edit text.
+      saveBtn = findViewById(R.id.idBtn)
 
         val productType = intent.getStringExtra("productType")
         if (productType.equals("Edit")) {
-            // on below line we are setting data to edit text.
             val productName = intent.getStringExtra("productName")
             val productCost = intent.getStringExtra("productCost")
             val productCount = intent.getStringExtra("productCount")
@@ -66,41 +67,47 @@ class AddEditProductActivity : AppCompatActivity() {
         } else {
             saveBtn.setText("Save Product")
         }
-        // on below line we are adding
-        // click listener to our save button.
+
         saveBtn.setOnClickListener {
-            // on below line we are getting
-            // title and desc from edit text.
+
             val productName = productNameEdt.text.toString()
             val productCost = productCostEdt.text.toString()
             val productCount = productCountEdt.text.toString()
             val productIsBought = productIsBoughtEdt.isChecked
 
-            // on below line we are checking the type
-            // and then saving or updating the data.
+
             if (productType.equals("Edit")) {
                 if (productName.isNotEmpty() && productCount.isNotEmpty() && productCost.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
-                    val currentDateAndTime: String = sdf.format(Date())
                     val updatedProduct =
                         Product(productName, productCost, productCount, productIsBought)
                     updatedProduct.id = ProductID
                     viewModal.updateProduct(updatedProduct)
-                    Toast.makeText(this, "Product Updated..", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "Product Updated..", Toast.LENGTH_LONG).show()
                 }
             } else {
                 if (productName.isNotEmpty() && productCount.isNotEmpty() && productCost.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
-                    val currentDateAndTime: String = sdf.format(Date())
-                    // if the string is not empty we are calling a
-                    // add Product method to add data to our room database.
-                    viewModal.addProduct(Product(productName, productCost, productCount, productIsBought))
-                    Toast.makeText(this, "$productName Added", Toast.LENGTH_LONG).show()
+
+                    viewModal.addProduct(
+                        Product(
+                            productName,
+                            productCost,
+                            productCount,
+                            productIsBought
+                        )
+                    )
+//                    Toast.makeText(this, "$productName Added", Toast.LENGTH_LONG).show()
                 }
             }
-                    // opening the new activity on below line
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
-                    this.finish()
-                }
-            }
+
+            sendBroadcast(Intent().also{
+                it.component = ComponentName("com.example.broadcastreceiver","com.example.broadcastreceiver.MyReceiver")
+                it.putExtra("productName", productName)
+                it.putExtra("productCost", productCost)
+                it.putExtra("productCount", productCount)
+                it.putExtra("productIsBought", productIsBought)
+            })
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            this.finish()
         }
+    }
+}

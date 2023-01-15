@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity">
+
+    <com.mapbox.maps.MapView xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:mapbox_cameraTargetLat="52.0"
+        app:mapbox_cameraTargetLng="21.0"
+        mapbox:mapbox_cameraZoom="9.0" />
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="60dp"
+        android:hint="Place Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/placesRV"
+        app:layout_constraintStart_toEndOf="@+id/btAddLocation"
+        app:layout_constraintTop_toBottomOf="@id/mapView" />
+
+    <EditText
+        android:id="@+id/etRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="60dp"
+        android:hint="Place Radius"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/placesRV"
+        app:layout_constraintStart_toEndOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@id/mapView" />
+
+    <Button
+        android:id="@+id/btAddLocation"
+        android:layout_width="86dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="4dp"
+        android:text="Add marker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mapView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/placesRV"
+        android:layout_width="361dp"
+        android:layout_height="587dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btAddLocation"
+        tools:listitem="@layout/place_rv_item" />
+
+    <EditText
+        android:id="@+id/etDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="60dp"
+        android:hint="Place Desc"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/placesRV"
+        app:layout_constraintStart_toEndOf="@+id/etRadius"
+        app:layout_constraintTop_toBottomOf="@id/mapView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
